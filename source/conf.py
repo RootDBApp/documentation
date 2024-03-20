@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'RootDB'
-copyright = '2024, atomicWeb'
-author = 'atomicWeb'
+copyright = '2024, PORQUET Sébastien'
+author = 'PORQUET Sébastien'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0.5'
@@ -52,8 +52,8 @@ language = 'en'
 exclude_patterns = []
 
 intersphinx_mapping = {
-    'nginx': ('/', None),
-    'memcached': ('', None),
+    'nginx': ('https://www.nginx.com/', None),
+    'memcached': ('https://www.memcached.org/', None),
     'mariadb': ('https://mariadb.org/documentation/', None),
     'supervisor_': ('http://supervisord.org/', None),
 }
