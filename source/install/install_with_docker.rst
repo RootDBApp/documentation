@@ -30,7 +30,7 @@ Download ready-to-use archives
             docker compose --env-file env up
 
        | RootdB will be available at : `localhost:8080`_
-     - | :download:`rdb_mariadb_memcached.zip <https://github.com/atomicweb-sas/rootdb/raw/main/docker-compose/rdb_mariadb_memcached.zip>`
+     - | :download:`rdb_mariadb_memcached.zip <https://github.com/RootDBApp/infra/raw/main/docker-compose/rdb_mariadb_memcached.zip>`
    * - All-in-one, custom hostname, with TLS
      - | Contains everything you need, with pre-configured config files to use with a custom hostname, **with TLS**.
        | RootdB will be available at a default : `front.hostname.tld:443`_ but,
@@ -51,7 +51,7 @@ Download ready-to-use archives
             chmod 600 <LOCAL_PK>
 
        | Then update, if needed, ``LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT``, ``LARAVEL_WEBSOCKETS_SSL_LOCAL_PK`` in ``api_env``, and ``NGINX_SSL_CERTS_DIR`` in Docker ``env`` file.
-     - | :download:`rdb_mariadb_memcached_tls.zip <https://github.com/atomicweb-sas/rootdb/raw/main/docker-compose/rdb_mariadb_memcached_tls.zip>`
+     - | :download:`rdb_mariadb_memcached_tls.zip <https://github.com/RootDBApp/infra/raw/main/docker-compose/rdb_mariadb_memcached_tls.zip>`
 
 .. caution::
 
