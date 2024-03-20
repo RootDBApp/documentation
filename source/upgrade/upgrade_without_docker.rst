@@ -2,7 +2,7 @@
 Without Docker
 ==============
 
-| You can use the same bash script you used for installation : :download:`install.sh <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/install.sh>`.
+| You can use the same bash script you used for installation : :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`.
 | Run it this way : ``./install.sh -e env``
 | The script will :
 

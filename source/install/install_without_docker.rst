@@ -93,7 +93,7 @@ Below an example for the frontend, using TLS with Certbot_ :
 .. code-block:: nginx
    :linenos:
    :emphasize-lines: 3,4,7,8,9,10,18,19,48
-   :caption: /etc/nginx/sites-available/<frontend.hostname.tld> ( download :download:`rootdb-frontend.hostname.tld <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/nginx/rootdb-frontend.hostname.tld>` )
+   :caption: /etc/nginx/sites-available/<frontend.hostname.tld> ( download :download:`rootdb-frontend.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-frontend.hostname.tld>` )
 
     server {
         listen 443 ssl;
@@ -154,7 +154,7 @@ Below an example for the API, using TLS with Certbot_ :
 .. code-block:: nginx
    :linenos:
    :emphasize-lines: 3,4,7,8,9,10,18,19,44
-   :caption: /etc/nginx/sites-available/<api.hostname.tld> ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/nginx/rootdb-api.hostname.tld>` )
+   :caption: /etc/nginx/sites-available/<api.hostname.tld> ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-api.hostname.tld>` )
 
     server {
         listen 443 ssl;
@@ -268,7 +268,7 @@ Supervisor handle the websocket server and cron jobs. Here are the configuration
 .. code-block:: ini
    :linenos:
    :emphasize-lines: 3,8,11
-   :caption: /etc/supervisor/conf.d/rootdb-websocket_server.conf ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/supervisor/rootdb-websocket_server.conf>` )
+   :caption: /etc/supervisor/conf.d/rootdb-websocket_server.conf ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-websocket_server.conf>` )
 
    [program:rootdb-websocket_server]
    process_name=%(program_name)s_%(process_num)02d
@@ -286,7 +286,7 @@ Supervisor handle the websocket server and cron jobs. Here are the configuration
 .. code-block:: ini
    :linenos:
    :emphasize-lines: 3,8,11
-   :caption: /etc/supervisor/conf.d/rootdb-cron_scheduler.conf ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/supervisor/rootdb-cron_scheduler.conf>` )
+   :caption: /etc/supervisor/conf.d/rootdb-cron_scheduler.conf ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-cron_scheduler.conf>` )
 
    [program:rootdb-cron_scheduler]
    process_name=%(program_name)s_%(process_num)02d
@@ -351,7 +351,7 @@ For log, once installed, the code tree will looks like this :
 
 How-to get the code
 -------------------
-A bash script is available here : :download:`install.sh <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/install.sh>`  - which will simplify the code installation. It will :
+A bash script is available here : :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`  - which will simplify the code installation. It will :
 
 1. Check if software requirements and mandatory php modules are available on your system.
 2. `Download latest RootDB archive`_.
@@ -367,7 +367,7 @@ You can run ``install.sh -h`` to see a list of available options.
 How-to run install.sh
 ~~~~~~~~~~~~~~~~~~~~~
 
-| First, you have to download a default :download:`env <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/env>` file which will be used to configure the API and frontend env files.
+| First, you have to download a default :download:`env <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/env>` file which will be used to configure the API and frontend env files.
 | Edit this file, there are comments inside to help you.
 | Then run the install script this way : ``install.sh -e ./env``
 
@@ -379,22 +379,22 @@ How-to run install.sh
    * - File
      - Description
      - MD5 checksum
-   * - :download:`install.sh <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/install.sh>`
+   * - :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`
      - installer bash script
      - 1129f18b0b253f936cce6436defb123a
-   * - :download:`env <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/env>`
+   * - :download:`env <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/env>`
      - ENV file
      - 1b65b0d62ca5a433c3f6d862dbd78dee
-   * - :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/nginx/rootdb-api.hostname.tld>`
+   * - :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-api.hostname.tld>`
      - API Nginx proxy
      - d36838cc51defd3e686c7a8f29c3df15
-   * - :download:`rootdb-frontend.hostname.tld <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/nginx/rootdb-frontend.hostname.tld>`
+   * - :download:`rootdb-frontend.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-frontend.hostname.tld>`
      - Frontend Nginx proxy
      - 2bf226b2284a7db4633466648231fef9
-   * - :download:`rootdb-cron_scheduler.conf <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/supervisor/rootdb-cron_scheduler.conf>`
+   * - :download:`rootdb-cron_scheduler.conf <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-cron_scheduler.conf>`
      - Supervisor configuration for cron jobs
      - 298fe65469546f38dde665ff7e84af4e
-   * - :download:`rootdb-websocket_server.conf <https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/supervisor/rootdb-websocket_server.conf>`
+   * - :download:`rootdb-websocket_server.conf <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-websocket_server.conf>`
      - Supervisor configuration for websocket server
      - 478eee5f1d4b531c1ead616241347765
 

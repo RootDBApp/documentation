@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-wget "https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/install.sh"
-wget "https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/bash/env"
-wget "https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/nginx/rootdb-api.hostname.tld"
-wget "https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/nginx/rootdb-frontend.hostname.tld"
-wget "https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/supervisor/rootdb-cron_scheduler.conf"
-wget "https://raw.githubusercontent.com/atomicweb-sas/rootdb/main/supervisor/rootdb-websocket_server.conf"
+wget "https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh"
+wget "https://raw.githubusercontent.com/RootDBApp/infra/main/bash/env"
+wget "https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-api.hostname.tld"
+wget "https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-frontend.hostname.tld"
+wget "https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-cron_scheduler.conf"
+wget "https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-websocket_server.conf"
 
 md5sum install.sh
 md5sum env
