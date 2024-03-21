@@ -11,7 +11,7 @@ Welcome to RootDB's documentation!
 
 .. rst-class:: center bold
 
-   RootDB_ is self-hosted reporting webapp.
+   RootDB_ is an open source self-hosted reporting webapp.
 
 
 Support
@@ -20,7 +20,7 @@ Support
 * Official website : `rootdb.fr`_
 * Community forum : `forum.rootdb.fr`_
 * Discord server : `join server`_
-
+* Github : `github`_
 
 
 
@@ -62,3 +62,4 @@ Reporting
 .. _rootdb.fr: https://www.rootdb.fr/
 .. _forum.rootdb.fr: https://forum.rootdb.fr/tags
 .. _join server: https://discord.gg/guKvGJAqZm
+.. _github: https://github.com/RootDBApp
