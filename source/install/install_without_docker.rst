@@ -381,7 +381,7 @@ How-to run install.sh
      - MD5 checksum
    * - :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`
      - installer bash script
-     - 1129f18b0b253f936cce6436defb123a
+     - c761f7542c12297a835571e949ee97de
    * - :download:`env <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/env>`
      - ENV file
      - 1b65b0d62ca5a433c3f6d862dbd78dee
