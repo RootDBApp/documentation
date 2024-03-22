@@ -21,28 +21,28 @@ You'll find everything related to the official RootDB documentation available at
 ## opensuse
 
 ```bash
-sudo zypper in -y python310-pip python310-Sphinx python310-readthedocs-sphinx-ext  python310-sphinx-inline-tabs  python310-sphinx-tabs python310-sphinxcontrib-fulltoc
+sudo zypper in -y make python310-pip python310-Sphinx python310-readthedocs-sphinx-ext  python310-sphinx-inline-tabs  python310-sphinx-tabs python310-sphinxcontrib-fulltoc
 pip install sphinxcontrib-images
 ```
 
 ## fedora
 
 ```bash  
-sudo dnf install -y  python3-pip python3-sphinx python3-sphinx-inline-tabs  python3-sphinx-tabs python3-sphinx_rtd_theme
+sudo dnf install -y make python3-pip python3-sphinx python3-sphinx-inline-tabs  python3-sphinx-tabs python3-sphinx_rtd_theme
 pip install sphinxcontrib-images
 ```
 
 ## debian
 
 ```bash
-sudo apt install -y  python3-pip python3-sphinx python3-sphinx-tabs sphinx-rtd-theme-common
+sudo apt install -y make python3-pip python3-sphinx python3-sphinx-tabs sphinx-rtd-theme-common
 pip install sphinxcontrib-images
 ```
 
 ## ubuntu
 
 ```bash
-sudo  python3-pip python3-sphinx sphinx-rtd-theme-common
+sudo make python3-pip python3-sphinx sphinx-rtd-theme-common
 pip install sphinxcontrib-images
 ```
 # Build documentation
