@@ -58,6 +58,14 @@ Reporting
 
    reporting/index
 
+Development
+===========
+
+.. toctree::
+   :maxdepth: 2
+
+   development/index
+
 .. _RootDB: https://www.rootdb.fr/
 .. _rootdb.fr: https://www.rootdb.fr/
 .. _forum.rootdb.fr: https://forum.rootdb.fr/tags

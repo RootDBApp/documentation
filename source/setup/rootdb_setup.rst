@@ -14,14 +14,6 @@ Super-admin user
 
     Default password for ``super-admin`` user is ``rootdbadmin``
 
---------
-Licenses
---------
-
-| Then, you will have to obtain a valid license in order to use RootDB.
-| Get one from `RootDB website`_
-| Once you have your license, simply copy-past it in the text area, then click on ``Add`` and finally ``Validate``
-
 ---------------------------------
 Before starting your first report
 ---------------------------------
