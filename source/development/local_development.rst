@@ -23,7 +23,7 @@ Finally, you have to update your system ``hosts`` file and add these entries :
    * - ``dev-rootdb-api.localhost.com``
      - ``172.20.0.40``
    * - ``dev-rootdb-ws-api.localhost.com``
-     -  ``172.20.0.30``
+     -  ``172.20.0.40``
    * - ``dev-rootdb-frontend.localhost.com``
      -  ``127.0.0.1``
 
