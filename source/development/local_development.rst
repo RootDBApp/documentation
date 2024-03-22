@@ -99,17 +99,18 @@ API
     dev-rootdb-api        | [22-Mar-2024 09:40:04] NOTICE: ready to handle connections
     dev-rootdb-api        | [22-Mar-2024 09:40:04] NOTICE: systemd monitor interval set to 10000ms
 
-| To run ``composer``, ``supervisor``, or Laravel ``artisan`` command, you have to go inside the API container :
 
-.. code-block:: bash
-
-    $ docker exec -it dev-rootdb-api bash
+| And that's all.
+| You can now refresh your web browser, that should already be opened on `dev-rootdb-frontend.localhost.com:3000`_ and RootDB should be displayed correctly.
 
 
 .. tip::
 
-    | And that's all.
-    | You can now refresh your web browser, that should already be opened on `dev-rootdb-frontend.localhost.com:3000`_ and RootDB should be displayed correctly.
+    If you need to run ``composer``, ``supervisor``, or Laravel ``artisan`` command, you have to go inside the API container :
+
+    .. code-block:: bash
+
+        $ docker exec -it dev-rootdb-api bash
 
 
 .. _github.com/RootDBApp/infra: https://github.com/RootDBApp/infra
