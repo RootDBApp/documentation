@@ -51,12 +51,7 @@ language = 'en'
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
-intersphinx_mapping = {
-    'nginx': ('https://www.nginx.com/', None),
-    'memcached': ('https://www.memcached.org/', None),
-    'mariadb': ('https://mariadb.org/documentation/', None),
-    'supervisor_': ('http://supervisord.org/', None),
-}
+intersphinx_mapping = { }
 
 # -- Options for HTML output -------------------------------------------------
 
