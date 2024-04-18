@@ -43,7 +43,7 @@ Install all dependencies with these commands, as ``root`` user :
          && apt install -y software-properties-common \
          && add-apt-repository -y ppa:ondrej/php \
          && apt update \
-         && apt install -y memcached mariadb-server php8.2 php8.2-gd php8.2-bcmath php8.2-dom php8.2-fpm php8.2-gd php8.2-iconv php8.2-mbstring php8.2-memcached php8.2-curl php8.2-mysql php8.2-pgsql php8.2-zip nginx postgresql-client-common supervisor
+         && apt install -y memcached mariadb-server bzip2 bsdextrautils php8.2 php8.2-gd php8.2-bcmath php8.2-dom php8.2-fpm php8.2-gd php8.2-iconv php8.2-mbstring php8.2-memcached php8.2-curl php8.2-mysql php8.2-pgsql php8.2-zip nginx postgresql-client-common supervisor
 
 
 Debian 12
@@ -57,7 +57,7 @@ Install all dependencies with these commands, as ``root`` user :
         && chmod +x /usr/local/bin/semver \
         && apt install -y ca-certificates apt-transport-https software-properties-common wget curl lsb-release \
         && curl -sSL https://packages.sury.org/php/README.txt | sudo bash -x \
-        && apt install -y memcached mariadb-server php8.2 php8.2-gd php8.2-bcmath php8.2-dom php8.2-fpm php8.2-iconv php8.2-mbstring php8.2-memcached php8.2-curl php8.2-mysql php8.2-pgsql php8.2-zip nginx postgresql-client-common supervisor
+        && apt install -y memcached mariadb-server bzip2 bsdextrautils php8.2 php8.2-gd php8.2-bcmath php8.2-dom php8.2-fpm php8.2-iconv php8.2-mbstring php8.2-memcached php8.2-curl php8.2-mysql php8.2-pgsql php8.2-zip nginx postgresql-client-common supervisor
 
 Services configuration
 ======================
@@ -67,7 +67,7 @@ MariaDB
 
 Here you should simply have an up and running MariaDB instance, with a a root user correctly configured.
 
-Setup RootDB database and API user :
+You have, then, to setup grants for the RootDB API user :
 
 .. code-block:: sql
 
@@ -92,17 +92,21 @@ Below an example for the frontend, using TLS with Certbot_ :
 
 .. code-block:: nginx
    :linenos:
-   :emphasize-lines: 3,4,7,8,9,10,18,19,48
+   :emphasize-lines: 5,6,9,10,13,14,22,23,29,54
    :caption: /etc/nginx/sites-available/<frontend.hostname.tld> ( download :download:`rootdb-frontend.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-frontend.hostname.tld>` )
 
     server {
         listen 443 ssl;
+        listen [::]:443 ssl;
+
         server_name <frontend.hostname.tld>;
         root        /path/to/frontend/;
         index       index.html;
 
         ssl_certificate     /etc/letsencrypt/live/<hostname.tld>/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/<hostname.tld>/privkey.pem;
+
+        # This block should go into a `ssl_options` file and included inside server block of all vhosts.
         # Remove this line below if you are not using Certbot
         ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
         ssl_session_cache shared:le_nginx_SSL:10m;
@@ -142,6 +146,8 @@ Below an example for the frontend, using TLS with Certbot_ :
 
     server {
         listen 80;
+        listen [::]:80;
+
         server_name <frontend.hostname.tld>;
         return 301 https://$host$request_uri;
     }
@@ -153,17 +159,21 @@ Below an example for the API, using TLS with Certbot_ :
 
 .. code-block:: nginx
    :linenos:
-   :emphasize-lines: 3,4,7,8,9,10,18,19,44
+   :emphasize-lines: 5,6,9,10,13,14,22,23,49
    :caption: /etc/nginx/sites-available/<api.hostname.tld> ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-api.hostname.tld>` )
 
     server {
         listen 443 ssl;
+        listen [::]:443 ssl;
+
         server_name <api.hostname.tld>;
         root        /path/to/api/public/;
         index       index.php;
 
         ssl_certificate     /etc/letsencrypt/live/<hostname.tld>/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/<hostname.tld>/privkey.pem;
+
+        # This block should go into a `ssl_options` file and included inside server block of all vhosts.
         # Remove this line below if you are not using Certbot
         ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
         ssl_session_cache shared:le_nginx_SSL:10m;
@@ -198,9 +208,68 @@ Below an example for the API, using TLS with Certbot_ :
 
     server {
         listen 80;
+        listen [::]:80;
+
         server_name <api.hostname.tld>;
         return 301 https://$host$request_uri;
     }
+
+Websocket
+~~~~~~~~~
+
+Below an example for the Websocket proxy, using TLS with Certbot_ :
+
+.. code-block:: nginx
+   :linenos:
+   :emphasize-lines: 5,6,9,10,13,14,22,23,43
+   :caption: /etc/nginx/sites-available/<api.hostname.tld> ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-ws-api.hostname.tld>` )
+
+    server {
+        listen 443 ssl;
+        listen [::]:443 ssl;
+
+        server_name <ws-api.hostname.tld>;
+        root        /path/to/api/public/;
+        index       index.php;
+
+        ssl_certificate     /etc/letsencrypt/live/<hostname.tld>/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/<hostname.tld>/privkey.pem;
+
+        # This block should go into a `ssl_options` file and included inside all vhosts's server section.
+        # Remove this line below if you are not using Certbot
+        ssl_dhparam         /etc/letsencrypt/ssl-dhparams.pem;
+        ssl_session_cache shared:le_nginx_SSL:10m;
+        ssl_session_timeout 1440m;
+        ssl_session_tickets off;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers off;
+        ssl_ciphers "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA";
+
+        access_log /var/log/nginx/<api.hostname.tld>.access.log;
+        error_log /var/log/nginx/<api.hostname.tld>.error.log;
+
+        location / {
+            proxy_http_version 1.1;
+            proxy_set_header Host $http_host;
+            proxy_set_header Scheme $scheme;
+            proxy_set_header SERVER_PORT $server_port;
+            proxy_set_header REMOTE_ADDR $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "Upgrade";
+
+            proxy_pass http://0.0.0.0:8080;
+        }
+    }
+
+    server {
+        listen 80;
+        listen [::]:80;
+
+        server_name <api.hostname.tld>;
+        return 301 https://$host$request_uri;
+    }
+
 
 
 Check your configuration and reload nginx :
@@ -223,34 +292,6 @@ You should probably raise the allowed memory for a PHP-FPM process in the ``php.
    upload_max_filesize = 500M
    post_max_size = 400M
 
-SourceGuardian extension
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-| To decipher encoded API code, you have to download the SourceGuardian PHP extension.
-| You'll find it here_.
-
-Once you have downloaded a ``.tar.gz`` archive on your server :
-
-.. code-block:: bash
-
-   tar xvf loaders.linux-x86_64.tar.gz
-
-The file ``ixed.8.2.lin``, extracted from the archive above have to be copied into the PHP module directory, eg: ``/usr/lib/php/20210902/`` on Debian 11 based distro or ``/usr/lib/php/20220829/`` on Debian 12 distro.
-
-Add this extension to the enf of ``php.ini`` file .
-
-.. code-block:: ini
-   :caption: /etc/php/8.2/fpm/php.ini
-
-   # At the end of the file :
-   extension=ixed.8.2.lin
-
-.. code-block:: ini
-   :caption: /etc/php/8.2/cli/php.ini
-
-   # At the end of the file :
-   extension=ixed.8.2.lin
-
 Finally, check your PHP-FPM configuration and restart the process :
 
 .. code-block:: bash
@@ -268,11 +309,11 @@ Supervisor handle the websocket server and cron jobs. Here are the configuration
 .. code-block:: ini
    :linenos:
    :emphasize-lines: 3,8,11
-   :caption: /etc/supervisor/conf.d/rootdb-websocket_server.conf ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-websocket_server.conf>` )
+   :caption: /etc/supervisor/conf.d/rootdb-websocket_server.conf ( download :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-reverb_server.conf>` )
 
-   [program:rootdb-websocket_server]
+   [program:rootdb-reverb_server]
    process_name=%(program_name)s_%(process_num)02d
-   command=php /path/to/api/artisan websockets:serve
+   command=php /path/to/api/artisan reverb:start
    autostart=true
    autorestart=true
    stopasgroup=true
@@ -280,7 +321,7 @@ Supervisor handle the websocket server and cron jobs. Here are the configuration
    user=<www-data or httpd>
    numprocs=1
    redirect_stderr=true
-   stdout_logfile=/path/to/api/storage/logs/websocket.log
+   stdout_logfile=/path/to/api/storage/logs//reverb_websocket.log
    stopwaitsecs=3600
 
 .. code-block:: ini
@@ -302,7 +343,7 @@ Supervisor handle the websocket server and cron jobs. Here are the configuration
 Firewall
 --------
 
-By default, you have to open these ports : ``80,443,6001``.
+By default, you have to open these ports : ``80,443``.
 
 
 Logs
@@ -313,40 +354,37 @@ You should consider to logrotate_ theses logs files :
 .. code-block:: default
 
    /path/to/api/storage/logs/laravel.log
-   /path/to/api/storage/logs/websocket.log
+   /path/to/api/storage/logs/reverb_websocket.log
 
 
 API & frontend code
 ===================
 
-Before **installing** RootDB code, make sure MariaDB is up and running.
+Before **installing** RootDB code, make sure MariaDB is up and running, with grants for RootDB API user.
 
 Code organization
 -----------------
 
-For log, once installed, the code tree will looks like this :
+For log, once installed, the code tree of your RootDB main directory will looks like this :
 
 .. code-block:: default
 
-   ├── api -> /home/rootdb/www/archives/1.0.4/api
-   ├── archives
-   │  ├── 1.0.3
-   │  │   ├── api
-   │  │   └── frontend
-   │  └── 1.0.4
-   │      ├── api
-   │      └── frontend
-   │
-   ├── frontend -> /home/rootdb/www/archives/1.0.4/frontend
-   ├── .api_db_initialized
-   ├── .api_env  <------------- contains all env variables for API.
-   ├── .api_initialized
-   ├── .app-config.js  <------- contains all env variables for frontend.
-   ├── .front_initialized
-   ├── .rdb_initialized
-   └── .rdb_upgraded_to
-
-
+    /path/to/www/rootdb
+       ├── api -> /path/to/www/rootdb/archives/1.0.4/api
+       │  └── .env -> /path/to/install_script_directory/api_env
+       │
+       ├── archives
+       │  ├── 1.0.3
+       │  │   ├── api
+       │  │   └── frontend
+       │  └── 1.0.4
+       │      ├── api
+       │      └── frontend
+       │
+       ├── frontend -> /path/to/www/rootdb/archives/1.0.4/frontend
+       │  └── app-config.js -> /path/to/install_script_directory/app-config.js
+       │
+       ├── .rdb_initialized
 
 
 How-to get the code
@@ -355,10 +393,7 @@ A bash script is available here : :download:`install.sh <https://raw.githubuserc
 
 1. Check if software requirements and mandatory php modules are available on your system.
 2. `Download latest RootDB archive`_.
-3. Extract the archive, organize .env files and boostrap RootDB :
-
-   1) setup ``.api_env`` and ``.app-config.js``
-   2) initialize the database
+3. Extract the archive, organize API & Frontend environment files and boostrap RootDB database.
 4. Upgrade automatically to a new version of RootDB.
 5. Or rollback to a previous version.
 
@@ -367,37 +402,31 @@ You can run ``install.sh -h`` to see a list of available options.
 How-to run install.sh
 ~~~~~~~~~~~~~~~~~~~~~
 
-| First, you have to download a default :download:`env <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/env>` file which will be used to configure the API and frontend env files.
-| Edit this file, there are comments inside to help you.
-| Then run the install script this way : ``install.sh -e ./env``
+First create a install directory somewhere in a safe place on your server, and download these files below inside this directory :
+
+* :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`
+* :download:`api_env <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/api_env>`
+* :download:`app-config.js <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/app-config.js>`
+
+Then update ``api_env`` & ``app-config.js`` to match your Nginx configuration.
+
+Your installation directory should looks like :
+
+.. code-block:: default
+
+    /path/to/install_script_directory
+       ├── api_env
+       ├── app-config.js
+       └── install.sh
 
 
-.. list-table:: Files to download for standalone installation
-   :widths: 30 30 40
-   :header-rows: 1
+.. tip::
 
-   * - File
-     - Description
-     - MD5 checksum
-   * - :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`
-     - installer bash script
-     - c761f7542c12297a835571e949ee97de
-   * - :download:`env <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/env>`
-     - ENV file
-     - 1b65b0d62ca5a433c3f6d862dbd78dee
-   * - :download:`rootdb-api.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-api.hostname.tld>`
-     - API Nginx proxy
-     - d36838cc51defd3e686c7a8f29c3df15
-   * - :download:`rootdb-frontend.hostname.tld <https://raw.githubusercontent.com/RootDBApp/infra/main/nginx/rootdb-frontend.hostname.tld>`
-     - Frontend Nginx proxy
-     - 2bf226b2284a7db4633466648231fef9
-   * - :download:`rootdb-cron_scheduler.conf <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-cron_scheduler.conf>`
-     - Supervisor configuration for cron jobs
-     - 298fe65469546f38dde665ff7e84af4e
-   * - :download:`rootdb-websocket_server.conf <https://raw.githubusercontent.com/RootDBApp/infra/main/supervisor/rootdb-websocket_server.conf>`
-     - Supervisor configuration for websocket server
-     - 478eee5f1d4b531c1ead616241347765
+    To make the installation script executable, you can execute ``chmod +x install.sh``
 
+| Then run the install script this way : ``./install.sh``
+| This will install RootDB inside this default directory path: ``/var/www/rootdb``.
+| If you want to change this path, run the script like this:  ``./install.sh -d /path/to/your/rootdb``
 
 .. _Certbot: https://certbot.eff.org/
 .. _docker-compose.yml: https://documentation.rootdb.fr/docker-compose.yml

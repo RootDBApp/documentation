@@ -2,8 +2,7 @@
 Without Docker
 ==============
 
-| You can use the same bash script you used for installation : :download:`install.sh <https://raw.githubusercontent.com/RootDBApp/infra/main/bash/install.sh>`.
-| Run it this way : ``./install.sh -e env``
+| From the installation directory you created when you installed for the first time RootDB, run the same ``install.sh`` script :
 | The script will :
 
 * fetch the latest version of RootDB's ;

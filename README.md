@@ -7,6 +7,7 @@ You'll find everything related to the official RootDB documentation available at
 
 
 <!-- TOC -->
+* [RootDB - documentation repository](#rootdb---documentation-repository)
 * [Sphinx installation](#sphinx-installation)
   * [opensuse](#opensuse)
   * [fedora](#fedora)
