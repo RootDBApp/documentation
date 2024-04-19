@@ -13,17 +13,21 @@ Error with TLS certificate
      - Where can I see it ?
      - Probable cause
    * - ``Pusher error: cURL error 35: error:14094410:SSL routines:ssl3_read_bytes:sslv3 alert handshake failure``
-     - Web-browser developer tools
+     - | Web-browser developer tools
+       | When websocket server is configured to handle TLS from API side.
      - Make  sure SSL certificates are readable by nginx process user. ( ``www-data:www-data`` on Debian based distro )
    * - ``cURL error 60: SSL certificate problem: unable to get local issuer certificate``
-     - Web-browser developer tools
+     - | Web-browser developer tools
+       | When websocket server is configured to handle TLS from API side.
      - ``WEBSOCKETS_SSL_LOCAL_CERT`` in API ``.env`` file have to be a fullchain.pem file
    * - ``cURL error 60: SSL: no alternative certificate subject name matches target host name '127.0.0.1'``
-     - Web-browser developer tools
+     - | Web-browser developer tools
+       | When websocket server is configured to handle TLS from API side.
      - ``PUSHER_APP_HOST`` from ``.app-config.js`` does not match  ``SESSION_DOMAIN`` from API ``.env``
    * - ``<a_webbrowser> cannot establish a connection with the server at address wss://<your_api_hostname>:6001/app/<you_ws_public_key>?protocol=7&client=js&version=7.4.0&flash=false``
-     - Web-browser developer tools
-     - | If you use a TLS connection for websocket, make sure that ``LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT`` and ``LARAVEL_WEBSOCKETS_SSL_LOCAL_PK``  point to up-to-date files, with right permissions. (``-rw-r--r--`` for ``LOCAL_CERT``, and ``-rw-------`` for ``LOCAL_PK`` )
+     - | Web-browser developer tools
+       | When websocket server is configured to handle TLS from API side.
+     - Make sure that ``LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT`` and ``LARAVEL_WEBSOCKETS_SSL_LOCAL_PK``  point to up-to-date files, with right permissions. (``-rw-r--r--`` for ``LOCAL_CERT``, and ``-rw-------`` for ``LOCAL_PK`` )
 
         .. code-block:: bash
 
@@ -47,7 +51,7 @@ You'll find log files here :
 
     /path/to/rootdb/www/api/storage/logs
     ├── laravel.log
-    ├── websocket.log
+    ├── reverb_websocket.log
     └── worker.log
 
 
@@ -60,7 +64,7 @@ You'll find log files here :
 
     /path/to/rootdb/mounted_www/api/storage/logs
     ├── laravel.log
-    ├── websocket.log
+    ├── reverb_websocket.log
     └── worker.log
 
 If RootDB was installed with Docker, and `www` directory is not mounted
@@ -70,7 +74,7 @@ If RootDB was installed with Docker, and `www` directory is not mounted
 
     # Each log files :
     docker exec -u rootdb -it rootdb bash -c 'less -R var/www/api/storage/logs/laravel.log'
-    docker exec -u rootdb -it rootdb bash -c 'less -R var/www/api/storage/logs/websocket.log'
+    docker exec -u rootdb -it rootdb bash -c 'less -R var/www/api/storage/logs/reverb_websocket.log'
     docker exec -u rootdb -it rootdb bash -c 'less -R var/www/api/storage/logs/worker.log'
 
     # All log files :
