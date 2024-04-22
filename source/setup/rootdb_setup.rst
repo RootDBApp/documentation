@@ -7,7 +7,6 @@ Super-admin user
 ----------------
 
 | First you will have to setup the ``super-admin`` user.
-| The ``super-admin`` user is the only one account authorized to setup licenses.
 | You will have to change the default password first.
 
 .. tip::
