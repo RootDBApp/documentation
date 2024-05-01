@@ -21,7 +21,7 @@ Download ready-to-use archives
    * - Services
      - Notes
      - Configuration files
-   * - All-in-one
+   * - All-in-one (`docker-compose`)
      - | Contains everything and works out-of-the box, **ideal to test in local**.
        | **TLDR** : Download the archive, extract, go into the extracted directory and run :
 
@@ -31,6 +31,20 @@ Download ready-to-use archives
 
        | RootdB will be available at : `localhost:8091`_
      - | :download:`rdb_mariadb_memcached.zip <https://github.com/RootDBApp/infra/raw/main/docker-compose/rdb_mariadb_memcached.zip>`
+   * - All-in-one (`podman-kube`)
+     - | Thanks to ullgren_, you can also use a podman-kube_ manifest that contains everything and works out-of-the box, **ideal to test in local**.
+       | **TLDR** : Download the `podman-kube.yaml` file, and in the directory containing the file :
+
+        .. code-block:: bash
+
+            # start
+            podman play kube --start  podman-kube.yaml
+
+            # stop
+            podman play kube --down  podman-kube.yaml
+
+       | RootdB will be available at : `localhost:8091`_
+     - | :download:`podman-kube.yaml <https://raw.githubusercontent.com/RootDBApp/infra/main/podman-kube/rdb_mariadb_memcached/podman-kube.yaml>`
 
 .. caution::
 
@@ -95,3 +109,5 @@ Starting services
 .. _localhost:8091: http://localhost:8091
 .. _Docker: https://docs.docker.com/engine/install/
 .. _compose: https://docs.docker.com/compose/install/
+.. _podman-kube: https://docs.podman.io/en/latest/markdown/podman-kube.1.html
+.. _ullgren: https://github.com/ullgren/rootdb-podman-infra
