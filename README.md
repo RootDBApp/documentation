@@ -37,7 +37,7 @@ pip install sphinxcontrib-images
 
 ```bash
 sudo apt install -y make python3-pip python3-sphinx python3-sphinx-tabs sphinx-rtd-theme-common
-pip install sphinxcontrib-images
+pip install sphinxcontrib-images sphinx-rtd-theme --break-system-packages
 ```
 
 ## ubuntu
