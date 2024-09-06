@@ -98,7 +98,7 @@ Allow you to order a table of object, using an object's attribute name as order 
 
 .. code-block:: javascript
    :linenos:
-   :emphasize-lines: 24
+   :emphasize-lines: 26
 
    // Given this array of objects :
    const jsonResults = [
@@ -160,10 +160,47 @@ Equivalent of the javascript ``console.log()``, but the output will appears in t
 
 .. code-block:: javascript
    :linenos:
-   :emphasize-lines: 2
+   :emphasize-lines: 1
 
    const labels = jsonResults.map(row => row.x_label);
    rdb.log(labels);
+
+rdb.getCSV = (assetId: number): Promise<JSON>
+---------------------------------------------
+
+.. tip::
+
+   Since RootDB v1.1.4
+
+Async download of CSV asset. You'll get a parsed CSV as Json object as result.
+
+.. code-block:: javascript
+   :linenos:
+   :emphasize-lines: 1
+
+   rdb.getCSV(<assetId>).then((json_data) => {
+
+     rdb.log(json_data);
+   });
+
+rdb.getJSON = (assetId: number): Promise<JSON>
+----------------------------------------------
+
+.. tip::
+
+   Since RootDB v1.1.4
+
+Async download of Json asset. You'll get a real Json object as result.
+
+.. code-block:: javascript
+   :linenos:
+   :emphasize-lines: 1
+
+   rdb.getJSON(<assetI>).then((json_data) => {
+
+     rdb.log(json_data);
+   });
+
 
 Chart.js
 ========
